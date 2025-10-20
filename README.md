@@ -1,74 +1,67 @@
-# Mini API Flask — Módulo 1 (Organização e Versionamento)
+# Mini API Flask — Organização e Versionamento
 
-Repositório público com uma mini API em Flask, organizada em /src e criada via application factory (create_app). Objetivo: demonstrar organização do projeto e versionamento com branches e commits padronizados.
+## 📌 Visão geral
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Pequena API em **Flask** organizada em `/src` usando o padrão **Application Factory** (`create_app`). Layout pensado para ser simples, modular e fácil de evoluir. ([Flask Documentation][1])
 
-📁 ESTRUTURA DO PROJETO
+---
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+## 🧰 Requisitos
 
+* Windows com **Python 3.10+**
+* **Flask** instalado via `pip`
+* Ambiente virtual com `venv` (recomendado)
+* Execução via **Flask CLI** com `--app` e `--debug` (apenas em desenvolvimento). ([Flask Documentation][2])
+
+---
+
+## 🚀 Como executar (Windows • PowerShell)
+
+```powershell
+python -m venv .venv
+& .\.venv\Scripts\Activate.ps1
+pip install -r requirements.txt
+flask --app src.app:create_app run --debug
+```
+
+> `--debug` liga o *debugger* e o *reloader* — **nunca** use isso em produção. ([Flask Documentation][3])
+
+---
+
+## 📁 Estrutura do projeto
+
+```
 src/
   __init__.py
   app.py        # create_app()
-  routes.py     # rotas /users (GET, POST)
+  routes.py     # /users (GET, POST)
   models.py     # armazenamento em memória
   config.py
 .gitignore
 requirements.txt
 README.md
+```
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+> Padrão “aplicação como pacote” + factory facilita testes, blueprints e extensões. ([Flask Documentation][4])
 
-🧰 REQUISITOS
+---
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+## 🔗 Endpoints
 
-- Windows com Python 3.10+ instalado
-- Flask (instalado via pip)
-- Recomenda-se usar ambiente virtual (venv)
+* **GET** `/users` — lista usuários (armazenados em memória).
+* **POST** `/users` — cria usuário. **Body (JSON):**
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  ```json
+  { "name": "Nome", "email": "email@dominio.com" }
+  ```
 
-▶️ COMO EXECUTAR (WINDOWS • POWERSHELL)
+  **Resposta:** `201 Created` com `{ "id": <int> }`.
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+---
 
-1) Criar e ativar a venv
-   python -m venv .venv
-   & .\.venv\Scripts\Activate.ps1
+## 🧪 Testes rápidos (Windows • PowerShell)
 
-2) Instalar dependências
-   pip install -r requirements.txt
-
-3) Rodar a aplicação (servidor de desenvolvimento)
-   flask --app src.app:create_app run --debug
-
-Obs.: --debug ativa recarregamento automático e debugger (apenas em desenvolvimento).
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-🔗 ENDPOINTS
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-- GET /users
-  → Lista usuários (armazenamento em memória).
-
-- POST /users
-  → Cria um usuário.
-  Body (JSON):
-    { "name": "Ana", "email": "ana@email.com" }
-  Resposta:
-    201 Created
-    Corpo: { "id": <int> }
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-🧪 EXEMPLOS (WINDOWS • POWERSHELL)
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
+```powershell
 # listar
 Invoke-RestMethod http://127.0.0.1:5000/users
 
@@ -77,72 +70,74 @@ $body = @{ name = "Ana"; email = "ana@email.com" } | ConvertTo-Json
 Invoke-RestMethod -Method POST `
   -Uri http://127.0.0.1:5000/users `
   -Body $body -ContentType 'application/json'
+```
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+> `Invoke-RestMethod` converte JSON da resposta em objetos PowerShell automaticamente. ([Microsoft Learn][5])
 
-🧭 FLUXO DE VERSIONAMENTO (GIT FLOW SIMPLIFICADO)
+---
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+## 🧭 Fluxo de trabalho sugerido (Git)
 
-Branches:
-- main      → estável (entrega)
-- develop   → integração
-- feature/* → novas funcionalidades (saem de develop)
+* `main` — estável
+* `develop` — integração
+* `feature/*` — novas funcionalidades (a partir de `develop`)
 
-Roteiro (linha de comando):
-# criar branch de integração (se ainda não existir)
+```bash
 git branch develop
 git push -u origin develop
 
-# nova feature
 git checkout -b feature/usuarios develop
 # ...implementar...
 git add .
 git commit -m "feat(users): implementar GET/POST"
 git push -u origin feature/usuarios
-
 # abrir PR: feature/usuarios -> develop
-# após revisar/mesclar, abrir PR: develop -> main
+# depois PR: develop -> main
+```
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+---
 
-📝 PADRÃO DE COMMITS (CONVENTIONAL COMMITS)
+## 📝 Commits
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Use mensagens claras e consistentes (ex.: `feat(users): implementar GET/POST`, `fix(users): validar campos obrigatórios`, `docs(readme): incluir execução`).
 
-Formato:
-<type>(scope): <description>
+---
 
-Exemplos:
-- feat(users): implementar GET/POST
-- fix(users): validar campos obrigatórios
-- docs(readme): incluir instruções de execução
+## 🙈 .gitignore (essencial)
 
-Tipos comuns: feat, fix, docs, test, chore, refactor.
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-🙈 .GITIGNORE (RESUMO)
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-# ambientes virtuais
+```
 .venv/
 venv/
 ENV/
-
-# caches python
 __pycache__/
 *.pyc
-
-# pacotes locais/offline
-vendor/
-
-# arquivos de SO/editor
 .DS_Store
+```
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+> Baseado no template oficial **Python.gitignore** do GitHub. ([GitHub][6])
 
-📦 DEPENDÊNCIAS
+---
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+## 📦 Dependências
+
+```
+Flask>=3.0
+```
+
+---
+
+## 📚 Referências
+
+* Flask — **Application Factory** e padrões. ([Flask Documentation][1])
+* Flask CLI — `--app` e `--debug` (desenvolvimento). ([Flask Documentation][2])
+* PowerShell — `Invoke-RestMethod` com JSON. ([Microsoft Learn][5])
+* GitHub — **Python.gitignore**. ([GitHub][6])
+
+> Pronto para colar no seu README. Se quiser, eu adapto o texto para o tom da sua equipe (mais formal/curto) ou incluo badges e seções extras (ex.: Roadmap, Contribuição, Licença).
+
+[1]: https://flask.palletsprojects.com/en/stable/patterns/appfactories/?utm_source=chatgpt.com "Application Factories — Flask Documentation (3.1.x)"
+[2]: https://flask.palletsprojects.com/en/stable/cli/?utm_source=chatgpt.com "Command Line Interface — Flask Documentation (3.1.x)"
+[3]: https://flask.palletsprojects.com/en/stable/debugging/?utm_source=chatgpt.com "Debugging Application Errors — Flask Documentation (3.1.x)"
+[4]: https://flask.palletsprojects.com/en/stable/patterns/?utm_source=chatgpt.com "Patterns for Flask — Flask Documentation (3.1.x)"
+[5]: https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/invoke-restmethod?view=powershell-7.5&utm_source=chatgpt.com "Invoke-RestMethod - PowerShell"
+[6]: https://raw.githubusercontent.com/github/gitignore/master/Python.gitignore?utm_source=chatgpt.com "Python .gitignore - GitHub"
