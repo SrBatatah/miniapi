@@ -133,8 +133,6 @@ Flask>=3.0
 * PowerShell — `Invoke-RestMethod` com JSON. ([Microsoft Learn][5])
 * GitHub — **Python.gitignore**. ([GitHub][6])
 
-> Pronto para colar no seu README. Se quiser, eu adapto o texto para o tom da sua equipe (mais formal/curto) ou incluo badges e seções extras (ex.: Roadmap, Contribuição, Licença).
-
 [1]: https://flask.palletsprojects.com/en/stable/patterns/appfactories/?utm_source=chatgpt.com "Application Factories — Flask Documentation (3.1.x)"
 [2]: https://flask.palletsprojects.com/en/stable/cli/?utm_source=chatgpt.com "Command Line Interface — Flask Documentation (3.1.x)"
 [3]: https://flask.palletsprojects.com/en/stable/debugging/?utm_source=chatgpt.com "Debugging Application Errors — Flask Documentation (3.1.x)"
