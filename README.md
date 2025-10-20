@@ -2,8 +2,12 @@
 
 Repositório público com uma mini API em Flask, organizada em /src e criada via application factory (create_app). Objetivo: demonstrar organização do projeto e versionamento com branches e commits padronizados.
 
-📁 ESTRUTURA DO PROJETO
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📁 ESTRUTURA DO PROJETO
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
 src/
   __init__.py
   app.py        # create_app()
@@ -14,14 +18,22 @@ src/
 requirements.txt
 README.md
 
-🧰 REQUISITOS
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🧰 REQUISITOS
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
 - Windows com Python 3.10+ instalado
 - Flask (instalado via pip)
 - Recomenda-se usar ambiente virtual (venv)
 
-▶️ COMO EXECUTAR (WINDOWS • POWERSHELL)
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+▶️ COMO EXECUTAR (WINDOWS • POWERSHELL)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
 1) Criar e ativar a venv
    python -m venv .venv
    & .\.venv\Scripts\Activate.ps1
@@ -34,8 +46,12 @@ README.md
 
 Obs.: --debug ativa recarregamento automático e debugger (apenas em desenvolvimento).
 
-🔗 ENDPOINTS
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🔗 ENDPOINTS
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
 - GET /users
   → Lista usuários (armazenamento em memória).
 
@@ -47,8 +63,12 @@ Obs.: --debug ativa recarregamento automático e debugger (apenas em desenvolvim
     201 Created
     Corpo: { "id": <int> }
 
-🧪 EXEMPLOS (WINDOWS • POWERSHELL)
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🧪 EXEMPLOS (WINDOWS • POWERSHELL)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
 # listar
 Invoke-RestMethod http://127.0.0.1:5000/users
 
@@ -58,19 +78,38 @@ Invoke-RestMethod -Method POST `
   -Uri http://127.0.0.1:5000/users `
   -Body $body -ContentType 'application/json'
 
-🧭 FLUXO DE VERSIONAMENTO (GIT FLOW SIMPLIFICADO)
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🧭 FLUXO DE VERSIONAMENTO (GIT FLOW SIMPLIFICADO)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
 Branches:
 - main      → estável (entrega)
 - develop   → integração
+- feature/* → novas funcionalidades (saem de develop)
 
 Roteiro (linha de comando):
 # criar branch de integração (se ainda não existir)
 git branch develop
 git push -u origin develop
 
-📝 PADRÃO DE COMMITS (CONVENTIONAL COMMITS)
+# nova feature
+git checkout -b feature/usuarios develop
+# ...implementar...
+git add .
+git commit -m "feat(users): implementar GET/POST"
+git push -u origin feature/usuarios
+
+# abrir PR: feature/usuarios -> develop
+# após revisar/mesclar, abrir PR: develop -> main
+
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📝 PADRÃO DE COMMITS (CONVENTIONAL COMMITS)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
 Formato:
 <type>(scope): <description>
 
@@ -81,8 +120,12 @@ Exemplos:
 
 Tipos comuns: feat, fix, docs, test, chore, refactor.
 
-🙈 .GITIGNORE (RESUMO)
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🙈 .GITIGNORE (RESUMO)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
 # ambientes virtuais
 .venv/
 venv/
@@ -98,7 +141,13 @@ vendor/
 # arquivos de SO/editor
 .DS_Store
 
-📦 DEPENDÊNCIAS
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📦 DEPENDÊNCIAS
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
 Flask>=3.0
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
