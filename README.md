@@ -2,7 +2,7 @@
 
 ## 📌 Visão geral
 
-Pequena API em **Flask** organizada em `/src` usando o padrão **Application Factory** (`create_app`). Layout pensado para ser simples, modular e fácil de evoluir. ([Flask Documentation][1])
+Pequena API em **Flask** organizada em `/src` usando o padrão **Application Factory** (`create_app`). Layout simples, modular e fácil de evoluir.
 
 ---
 
@@ -11,7 +11,6 @@ Pequena API em **Flask** organizada em `/src` usando o padrão **Application Fac
 * Windows com **Python 3.10+**
 * **Flask** instalado via `pip`
 * Ambiente virtual com `venv` (recomendado)
-* Execução via **Flask CLI** com `--app` e `--debug` (apenas em desenvolvimento). ([Flask Documentation][2])
 
 ---
 
@@ -24,7 +23,7 @@ pip install -r requirements.txt
 flask --app src.app:create_app run --debug
 ```
 
-> `--debug` liga o *debugger* e o *reloader* — **nunca** use isso em produção. ([Flask Documentation][3])
+> `--debug` liga o *debugger* e o *reloader* — use apenas em desenvolvimento.
 
 ---
 
@@ -42,8 +41,6 @@ requirements.txt
 README.md
 ```
 
-> Padrão “aplicação como pacote” + factory facilita testes, blueprints e extensões. ([Flask Documentation][4])
-
 ---
 
 ## 🔗 Endpoints
@@ -56,6 +53,8 @@ README.md
   ```
 
   **Resposta:** `201 Created` com `{ "id": <int> }`.
+
+> Observação: existe também `/health` para verificação rápida do serviço.
 
 ---
 
@@ -72,11 +71,9 @@ Invoke-RestMethod -Method POST `
   -Body $body -ContentType 'application/json'
 ```
 
-> `Invoke-RestMethod` converte JSON da resposta em objetos PowerShell automaticamente. ([Microsoft Learn][5])
-
 ---
 
-## 🧭 Fluxo de trabalho sugerido (Git)
+## 🧭 Fluxo de trabalho (Git)
 
 * `main` — estável
 * `develop` — integração
@@ -114,10 +111,6 @@ __pycache__/
 .DS_Store
 ```
 
-> Baseado no template oficial **Python.gitignore** do GitHub. ([GitHub][6])
-
----
-
 ## 📦 Dependências
 
 ```
@@ -126,16 +119,9 @@ Flask>=3.0
 
 ---
 
-## 📚 Referências
-
-* Flask — **Application Factory** e padrões. ([Flask Documentation][1])
-* Flask CLI — `--app` e `--debug` (desenvolvimento). ([Flask Documentation][2])
-* PowerShell — `Invoke-RestMethod` com JSON. ([Microsoft Learn][5])
-* GitHub — **Python.gitignore**. ([GitHub][6])
-
 [1]: https://flask.palletsprojects.com/en/stable/patterns/appfactories/?utm_source=chatgpt.com "Application Factories — Flask Documentation (3.1.x)"
-[2]: https://flask.palletsprojects.com/en/stable/cli/?utm_source=chatgpt.com "Command Line Interface — Flask Documentation (3.1.x)"
-[3]: https://flask.palletsprojects.com/en/stable/debugging/?utm_source=chatgpt.com "Debugging Application Errors — Flask Documentation (3.1.x)"
-[4]: https://flask.palletsprojects.com/en/stable/patterns/?utm_source=chatgpt.com "Patterns for Flask — Flask Documentation (3.1.x)"
+[2]: https://flask.palletsprojects.com/en/stable/server/?utm_source=chatgpt.com "Development Server — Flask Documentation (3.1.x)"
+[3]: https://github.com/github/gitignore?utm_source=chatgpt.com "A collection of useful .gitignore templates"
+[4]: https://raw.githubusercontent.com/github/gitignore/master/Python.gitignore?utm_source=chatgpt.com "Python .gitignore - GitHub"
 [5]: https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/invoke-restmethod?view=powershell-7.5&utm_source=chatgpt.com "Invoke-RestMethod - PowerShell"
-[6]: https://raw.githubusercontent.com/github/gitignore/master/Python.gitignore?utm_source=chatgpt.com "Python .gitignore - GitHub"
+ 
