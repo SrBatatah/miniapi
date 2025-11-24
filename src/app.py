@@ -7,5 +7,7 @@ def create_app():
     from .routes import bp as users_bp
     app.register_blueprint(users_bp)
 
-    # Future: configs, db init, CLI, etc.
+    from .exchange_routes import exchange_bp
+    app.register_blueprint(exchange_bp)
+
     return app

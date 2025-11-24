@@ -3,7 +3,7 @@ __pycache__/
 *.py[cod]
 *$py.class
 
-# Remove sonar
+# Sonar informations
 .sonar/
 
 # Virtual environments
