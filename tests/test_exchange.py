@@ -19,7 +19,7 @@ def test_get_usd_to_brl_ok():
         result = get_usd_to_brl()
 
     assert result["pair"] == "USD-BRL"
-    assert result["bid"] == 5.1234
+    assert result["bid"] == pytest.approx(5.1234, rel=1e-9)
     assert result["timestamp"] == "2025-11-21 10:00:00"
 
 
