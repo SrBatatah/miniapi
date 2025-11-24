@@ -1,3 +1,4 @@
+import pytest
 from unittest.mock import patch, Mock
 from src.services.exchange_service import get_usd_to_brl
 
@@ -6,7 +7,7 @@ def test_get_usd_to_brl_ok():
     fake_response = {
         "USDBRL": {
             "bid": "5.1234",
-            "create_date": "2025-11-21 10:00:00"
+            "create_date": "2025-11-21 10:00:00",
         }
     }
 
@@ -28,8 +29,5 @@ def test_get_usd_to_brl_bad_payload():
     mock_resp.raise_for_status.return_value = None
 
     with patch("src.services.exchange_service.requests.get", return_value=mock_resp):
-        try:
+        with pytest.raises(ValueError):
             get_usd_to_brl()
-            assert False, "Era para lançar ValueError"
-        except ValueError:
-            assert True
